@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
+import { useFounderAuth } from "@/contexts/FounderAuthContext";
 import {
   Accordion,
   AccordionContent,
@@ -20,7 +22,12 @@ import {
   ShieldCheck,
   BarChart3,
   CheckCircle2,
+  Code2,
+  Database,
+  Smartphone,
+  Blocks,
 } from "lucide-react";
+import FluidLayout from "./FluidLayout";
 
 const services = [
   {
@@ -88,7 +95,25 @@ const reasons = [
   },
 ];
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 }
+  }
+};
+
 const StartupStudioSection = () => {
+  const { canAccessIdeaAnalyzer } = useFounderAuth();
+  useEffect(() => {
+    // Scroll handling or other non-fluid effects can go here
+  }, []);
+
   const faqs = [
     {
       q: "Do we still need to hire engineers?",
@@ -121,492 +146,435 @@ const StartupStudioSection = () => {
   ];
 
   return (
-    <div className="bg-gradient-to-b from-background via-background to-background/95 text-foreground">
-      {/* HERO */}
-      <section className="border-y bg-gradient-to-b from-slate-950 via-slate-950/95 to-background pb-20 pt-32 sm:pb-24 lg:pt-40">
-        <div className="container">
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center">
-            <div>
-              <motion.p
-                className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium uppercase tracking-wide text-primary"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                Startup Studio for Builders & Scalers
-              </motion.p>
-              <motion.h1
-                className="mb-4 font-display text-3xl font-extrabold tracking-tight text-slate-50 sm:text-4xl lg:text-5xl"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35, delay: 0.05 }}
-              >
-                Build Your Startup Idea or Scale Your Existing Product — Without Hiring Engineers
-              </motion.h1>
-              <motion.p
-                className="mb-8 max-w-xl text-base text-slate-300 sm:text-lg"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35, delay: 0.1 }}
-              >
-                Whether you're turning an idea into reality or scaling a seed/Series A startup, we provide elite engineering teams for design, development, architecture consulting, and scaling solutions. From MVP to enterprise — with one execution team.
-              </motion.p>
+    <div className="text-foreground overflow-x-hidden relative selection:bg-emerald-500/30">
+      {/* Deep Space Background Mesh */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary/10 blur-[120px]" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-emerald-900/10 blur-[150px]" />
+      </div>
 
-              <motion.div
-                className="flex flex-wrap items-center gap-3"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35, delay: 0.15 }}
-              >
-                <Button asChild size="lg" className="gap-2 text-base">
-                  <Link to="/startup-studio/contact">
-                    Start Building
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-                <Button asChild size="lg" variant="outline" className="border-slate-600 bg-slate-900/60 text-slate-100">
-                  <Link to="/contact?interest=startup-studio">Talk to Us</Link>
-                </Button>
-                <p className="ml-1 text-sm text-slate-400">
-                  <span className="font-semibold text-primary">MVPs in weeks, not months. Founder-friendly, no fluff.</span>
-                </p>
-              </motion.div>
-            </div>
-
-            {/* Hero visual */}
-            <motion.div
-              className="relative overflow-hidden rounded-2xl border border-slate-700/80 bg-slate-900/60 shadow-[0_18px_60px_-40px_rgba(15,23,42,1)]"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              <img
-                src="/startup-studio/startup-studio-hero-coders.png"
-                alt="Engineers collaborating to build your product"
-                className="h-full w-full object-cover opacity-95"
-              />
-              <div className="absolute inset-x-4 bottom-4 rounded-xl border border-white/10 bg-slate-950/70 p-4">
-                <p className="text-xs font-medium text-slate-100">From idea → MVP → production</p>
-                <p className="mt-1 text-xs text-slate-300">
-                  One studio team. No hiring ramp-up. Just shipping.
-                </p>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* BUILD IN ACTION */}
-      <section className="border-b bg-background/95 py-16 sm:py-20">
-        <div className="container">
-          <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">
-                Build in motion, not in theory
-              </h2>
-              <p className="mt-2 max-w-xl text-sm text-muted-foreground sm:text-base">
-                Whiteboards, systems, code, and UI move together. You see your product taking shape every week — from first
-                sketch to production deploy.
-              </p>
-            </div>
-            <p className="text-xs text-muted-foreground sm:text-sm">
-              From idea to production — <span className="font-medium text-foreground">we build everything.</span>
-            </p>
-          </div>
-
-          <div className="grid gap-6 lg:grid-cols-3">
-            <motion.div
-              className="group relative overflow-hidden rounded-2xl border bg-card/80 shadow-sm"
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.35 }}
-            >
-              <img
-                src="/startup-studio/startup-studio-hero-coders.png"
-                alt="Engineers working on product"
-                className="h-[260px] w-full object-cover opacity-95 transition-transform duration-500 group-hover:scale-[1.02]"
-              />
-              <div className="absolute inset-x-4 bottom-4 rounded-xl border border-white/10 bg-slate-950/70 p-3">
-                <p className="text-xs font-medium text-slate-100">From idea → build</p>
-                <p className="mt-1 text-xs text-slate-300">Weekly iterations with visible progress.</p>
-              </div>
-            </motion.div>
-
-            <motion.div
-              className="group relative overflow-hidden rounded-2xl border bg-card/80 shadow-sm"
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.35, delay: 0.05 }}
-            >
-              <img
-                src="/startup-studio/startup-studio-architecture-whiteboard.png"
-                alt="Team whiteboarding system architecture"
-                className="h-[260px] w-full object-cover opacity-95 transition-transform duration-500 group-hover:scale-[1.02]"
-              />
-              <div className="absolute inset-x-4 bottom-4 rounded-xl border border-white/10 bg-slate-950/70 p-3">
-                <p className="text-xs font-medium text-slate-100">Architecture first</p>
-                <p className="mt-1 text-xs text-slate-300">Design the system before we commit code.</p>
-              </div>
-            </motion.div>
-
-            <motion.div
-              className="group relative overflow-hidden rounded-2xl border bg-card/80 shadow-sm"
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.35, delay: 0.1 }}
-            >
-              <img
-                src="/startup-studio/startup-studio-devops-monitor.png"
-                alt="Engineers configuring deployment and DevOps"
-                className="h-[260px] w-full object-cover opacity-95 transition-transform duration-500 group-hover:scale-[1.02]"
-              />
-              <div className="absolute inset-x-4 bottom-4 rounded-xl border border-white/10 bg-slate-950/70 p-3">
-                <p className="text-xs font-medium text-slate-100">Deploy with confidence</p>
-                <p className="mt-1 text-xs text-slate-300">CI/CD, monitoring, and reliability from day one.</p>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* WHY US */}
-      <section className="border-b bg-background py-16 sm:py-20">
-        <div className="container">
-          <div className="mx-auto mb-10 max-w-3xl text-center">
-            <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">Why Founders Choose Us</h2>
-            <p className="mt-3 text-sm text-muted-foreground sm:text-base">
-              You don&apos;t need a headcount plan to get to product-market fit. You need a product that ships fast, stays
-              reliable, and can grow with you.
-            </p>
-          </div>
-
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {reasons.map((item, i) => (
-              <motion.div
-                key={item.title}
-                className="rounded-xl border bg-card p-6 text-left shadow-sm transition-colors hover:border-primary/50"
-                initial={{ opacity: 0, y: 14 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.35, delay: i * 0.05 }}
-              >
-                <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                  {item.icon}
-                </div>
-                <h3 className="mb-1 font-display text-base font-semibold">{item.title}</h3>
-                <p className="text-sm text-muted-foreground">{item.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* WHAT WE OFFER */}
-      <section className="border-b bg-background py-16 sm:py-20">
-        <div className="container">
-          <div className="mx-auto mb-8 max-w-3xl text-center">
-            <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">Everything you need to ship</h2>
-            <p className="mt-3 text-sm text-muted-foreground sm:text-base">
-              Web, app, backend, infra, AI, DevOps — one team, one build loop, no silos.
-            </p>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {services.map((service) => (
-              <div
-                key={service.title}
-                className="flex flex-col gap-3 rounded-xl border bg-card/90 p-6 text-left shadow-sm hover:border-primary/50"
-              >
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                  {service.icon}
-                </div>
+      <div className="relative z-10">
+        {/* HERO */}
+        <FluidLayout className="relative min-h-[90vh] flex items-center pt-32 pb-20 sm:pb-32 lg:pt-40 w-full">
+          <div className="container relative z-10">
+            <div className="grid gap-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
                 <div>
-                  <h3 className="font-display text-base font-semibold">{service.title}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">{service.description}</p>
+                  <motion.div
+                    className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-emerald-300 backdrop-blur-md"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    Startup Studio
+                  </motion.div>
+                  
+                  <motion.h1
+                    className="mb-6 font-display text-4xl font-extrabold tracking-tight text-foreground sm:text-6xl lg:text-7xl lg:leading-[1.1]"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                  >
+                    Build or Scale <br className="hidden lg:block"/>
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-primary">Without Hiring</span>
+                  </motion.h1>
+                  
+                  <motion.p
+                    className="mb-10 max-w-xl text-lg text-muted-foreground font-light leading-relaxed"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                  >
+                    Whether you're turning an idea into reality or scaling a Series A startup, we provide elite engineering teams for design, architecture, and scaling. From MVP to enterprise.
+                  </motion.p>
+
+                  <motion.div
+                    className="flex flex-wrap items-center gap-4"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                  >
+                    <Button asChild size="lg" className="rounded-full h-12 px-8 text-sm font-semibold transition-transform hover:scale-105 active:scale-95 shadow-[0_0_30px_-5px_rgba(59,130,246,0.4)]">
+                      <Link to="/startup-studio/contact">
+                        Start Building
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </Link>
+                    </Button>
+                    <Button asChild size="lg" variant="outline" className="rounded-full h-12 px-8 border-border bg-background/60 text-foreground hover:bg-accent backdrop-blur-md">
+                      {canAccessIdeaAnalyzer() ? (
+                        <Link to="/startup-studio/idea-builder">AI Idea Analyzer</Link>
+                      ) : (
+                        <Link to="/founder/login?redirect=/startup-studio/idea-builder">AI Idea Analyzer</Link>
+                      )}
+                    </Button>
+                  </motion.div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* HOW IT WORKS */}
-      <section className="border-b bg-background py-16 sm:py-20">
-        <div className="container">
-          <div className="mx-auto mb-10 max-w-3xl text-center">
-            <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">How it works</h2>
-            <p className="mt-3 text-sm text-muted-foreground sm:text-base">
-              A simple path from idea to something real users can touch.
-            </p>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-4">
-            {[
-              {
-                step: "01",
-                title: "Share your vision",
-                text: "We unpack your vision, target users, and constraints in a focused working session — whether it's a new idea or scaling an existing product.",
-              },
-              {
-                step: "02",
-                title: "Design & plan",
-                text: "We map the solution: flows, architecture, and a build plan aligned to your goals, from MVP to enterprise scaling.",
-              },
-              {
-                step: "03",
-                title: "Build or optimize",
-                text: "We build new features, refactor systems, or scale infrastructure in weekly iterations with visible progress.",
-              },
-              {
-                step: "04",
-                title: "Scale & iterate",
-                text: "Ship to real users, measure, and evolve the product — with the same team from idea to IPO.",
-              },
-            ].map((item) => (
-              <div key={item.step} className="flex flex-col gap-3 rounded-xl border bg-card/90 p-5">
-                <span className="text-xs font-medium uppercase tracking-wide text-primary">{item.step}</span>
-                <h3 className="font-display text-base font-semibold">{item.title}</h3>
-                <p className="text-sm text-muted-foreground">{item.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* COMPARISON */}
-      <section className="border-b bg-background py-16 sm:py-20">
-        <div className="container">
-          <div className="mx-auto mb-8 max-w-3xl text-center">
-            <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">Skip Hiring. Start Building or Scaling.</h2>
-            <p className="mt-3 text-sm text-muted-foreground sm:text-base">
-              Compare building a team from scratch with plugging into a Startup Studio that&apos;s ready to ship — for new products or scaling existing ones.
-            </p>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-2">
-            <div className="rounded-2xl border bg-card/90 p-6 shadow-sm">
-              <h3 className="mb-3 font-display text-lg font-semibold">Hiring Engineers</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li className="flex items-start gap-2">
-                  <span className="mt-1 h-1.5 w-1.5 rounded-full bg-destructive" />
-                  <span>Expensive and slow hiring cycles before you can ship.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="mt-1 h-1.5 w-1.5 rounded-full bg-destructive" />
-                  <span>Multiple hires needed across backend, frontend, infra, and data.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="mt-1 h-1.5 w-1.5 rounded-full bg-destructive" />
-                  <span>You manage standups, reviews, and performance from day one.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="mt-1 h-1.5 w-1.5 rounded-full bg-destructive" />
-                  <span>Risk of mismatched hires and a team that hasn&apos;t shipped together.</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="rounded-2xl border border-primary/50 bg-card/95 p-6 shadow-[0_18px_40px_-32px_rgba(59,130,246,1)]">
-              <h3 className="mb-3 font-display text-lg font-semibold text-primary">Startup Studio</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 text-primary" />
-                  <span>Start immediately with a unified engineering squad.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 text-primary" />
-                  <span>One team that covers web, app, backend, infra, AI, and DevOps.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 text-primary" />
-                  <span>We handle delivery, process, and technical decisions; you focus on growth.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 text-primary" />
-                  <span>Engineers from Blinkit, Zomato, Google, Amazon, Microsoft, JioStar & Swiggy — enterprise-grade talent from day one.</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SOCIAL PROOF */}
-      <section className="border-b bg-slate-950 py-14 text-slate-50">
-        <div className="container">
-          <div className="flex flex-col gap-8">
-            <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-              <div>
-                <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-emerald-300">
-                  Top-tier engineering talent
-                </p>
-                <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">
-                  Engineers from Blinkit, Zomato, Google, Amazon, Microsoft, JioStar & Swiggy
-                </h2>
-                <p className="mt-3 max-w-xl text-sm text-slate-300 sm:text-base">
-                  Our team brings battle-tested experience from the world's most demanding tech environments. The same engineers who scaled massive platforms at top companies now help your startup build and scale with enterprise-grade engineering.
-                </p>
-              </div>
-
-              <div className="grid gap-4 sm:grid-cols-3 md:text-center">
-                <div>
-                  <p className="font-display text-xl font-semibold text-slate-50">Enterprise-grade</p>
-                  <p className="text-xs text-slate-400">engineering</p>
-                </div>
-                <div>
-                  <p className="font-display text-xl font-semibold text-slate-50">FAANG-level</p>
-                  <p className="text-xs text-slate-400">talent</p>
-                </div>
-                <div>
-                  <p className="font-display text-xl font-semibold text-slate-50">Battle-tested</p>
-                  <p className="text-xs text-slate-400">at massive scale</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="rounded-xl border border-emerald-500/40 bg-emerald-500/5 px-4 py-3 text-xs text-slate-200 sm:text-sm">
-              <p className="mb-1 font-medium text-emerald-200">Built for founders at:</p>
-              <div className="flex flex-wrap items-center gap-4 text-[0.75rem] sm:text-sm">
-                <span className="inline-flex items-center gap-1 rounded-full bg-slate-900/70 px-3 py-1">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                  Shoppin
-                </span>
-                <span className="inline-flex items-center gap-1 rounded-full bg-slate-900/70 px-3 py-1">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                  PandaMoney
-                </span>
-                <span className="inline-flex items-center gap-1 rounded-full bg-slate-900/70 px-3 py-1">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                  Source Asia
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* EXISTING CLIENTS */}
-      <section className="relative border-b bg-background py-16 sm:py-20">
-        {/* Decorative gradients */}
-        <div className="pointer-events-none absolute -left-24 top-10 h-64 w-64 rounded-full bg-primary/20 blur-3xl" />
-        <div className="pointer-events-none absolute -right-24 top-40 h-64 w-64 rounded-full bg-emerald-500/10 blur-3xl" />
-        <div className="container">
-          <div className="mx-auto mb-10 max-w-3xl text-center">
-            <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">Delivered Client Builds</h2>
-            <p className="mt-3 text-sm text-muted-foreground sm:text-base">
-              We&apos;ve built end-to-end products with founders and teams like:
-            </p>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-3">
-            {[
-              {
-                name: "Shoppin",
-                logo: "/startup-studio/client-logos/startup-studio-logo-shoppin.png",
-                description:
-                  "E-commerce workflows, checkout, and core product features—built with production-grade infra and reliable releases.",
-              },
-              {
-                name: "PandaMoney",
-                logo: "/startup-studio/client-logos/startup-studio-logo-pandamoney.png",
-                description:
-                  "Fintech-grade backend for payments and workflows—secure APIs, scalable services, and monitoring built for iteration.",
-              },
-              {
-                name: "Source Asia",
-                logo: "/startup-studio/client-logos/startup-studio-logo-source-asia.png",
-                description:
-                  "Web/app platform built for growth—clean architecture, stable deployments, analytics-ready workflows, and fast iteration.",
-              },
-            ].map((client) => (
-              <div key={client.name} className="group relative min-h-[320px] overflow-hidden rounded-2xl p-[1px]">
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/60 via-slate-800/20 to-emerald-500/40 opacity-50 transition-opacity group-hover:opacity-100" />
-                <div className="relative flex h-full flex-col overflow-hidden rounded-[1rem] border border-white/10 bg-card/70 p-6 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-card/60">
-                  <div className="absolute inset-0">
+                {/* Hero visual */}
+                <motion.div
+                  className="relative mx-auto w-full max-w-lg lg:max-w-none"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.2, type: "spring" }}
+                >
+                  <div className="absolute -inset-1 rounded-[2.5rem] bg-gradient-to-br from-emerald-500/20 via-primary/20 to-transparent blur-2xl z-0" />
+                  <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900/50 p-2 backdrop-blur-xl z-10">
                     <img
-                      src={client.logo}
-                      alt={`${client.name} logo`}
-                      className="h-full w-full object-cover opacity-70 transition-transform duration-700 group-hover:scale-[1.04]"
+                      src="/startup-studio/startup-studio-hero-coders.png"
+                      alt="Engineers collaborating"
+                      className="h-full w-full rounded-3xl object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/65 to-black/35" />
-                  </div>
-
-                  <div className="relative">
-                    <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-black/35 px-3 py-1 text-[11px] font-medium uppercase tracking-wide text-primary">
-                      Built with studio engineers
+                    <div className="absolute bottom-6 left-6 right-6 rounded-2xl border border-border bg-background/80 p-4 backdrop-blur-md">
+                      <p className="text-sm font-semibold text-foreground">Idea → MVP → Scale</p>
+                      <p className="mt-1 text-xs text-muted-foreground">One dedicated architecture & building team.</p>
                     </div>
-                    <h3 className="font-display text-lg font-semibold text-slate-50">{client.name}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-slate-200">{client.description}</p>
                   </div>
+                </motion.div>
+              </div>
+            </div>
+        </FluidLayout>
 
-                  <div className="relative mt-5 flex flex-wrap gap-2 text-[11px]">
-                    <span className="rounded-full bg-black/35 px-3 py-1 text-slate-100">MVP → Production</span>
-                    <span className="rounded-full bg-black/35 px-3 py-1 text-slate-100">Backend + App + Infra</span>
+        {/* STATISTICS */}
+        <section className="relative py-12 sm:py-16">
+          <div className="container relative z-10">
+            <motion.div 
+              className="grid grid-cols-2 gap-8 md:grid-cols-4 md:divide-x md:divide-border rounded-3xl border border-border bg-muted/40 dark:bg-white/[0.02] p-8 backdrop-blur-2xl"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              {[
+                { val: "3x", label: "Faster MVP Launch" },
+                { val: "$150k+", label: "Saved on Hiring" },
+                { val: "99.9%", label: "Uptime Architecture" },
+                { val: "100%", label: "Code Ownership" },
+              ].map((stat, i) => (
+                <motion.div key={i} variants={fadeUp} className="flex flex-col items-center justify-center p-2">
+                  <span className="font-display text-4xl font-black md:text-5xl lg:text-5xl xl:text-6xl text-transparent bg-clip-text bg-gradient-to-b from-foreground to-foreground/50">{stat.val}</span>
+                  <span className="mt-3 text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-muted-foreground text-center">{stat.label}</span>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* BUILD IN MOTION */}
+        <section className="relative py-24 sm:py-32">
+          <div className="container">
+            {/* Header row */}
+            <motion.div
+              className="mb-12 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <div className="max-w-lg">
+                <h2 className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+                  Build in motion, <span className="text-muted-foreground font-light">not in theory</span>
+                </h2>
+                <p className="mt-4 text-sm text-muted-foreground font-light leading-relaxed">
+                  Real collaboration. Real code. Real products. Every sprint brings you closer to launch with tangible progress your users can see.
+                </p>
+              </div>
+              <p className="text-sm text-muted-foreground sm:text-right sm:max-w-xs sm:pt-1">
+                Full-stack execution —{" "}
+                <span className="font-semibold text-foreground">from concept to production.</span>
+              </p>
+            </motion.div>
+
+            {/* Three image cards */}
+            <motion.div
+              className="grid gap-6 md:grid-cols-3"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              {[
+                {
+                  img: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=900&q=80",
+                  num: "01",
+                  tag: "Sprint Planning",
+                  sub: "Map features, priorities, and milestones weekly. Clear roadmap, shared visibility.",
+                },
+                {
+                  img: "https://images.unsplash.com/photo-1587620962725-abab7fe55159?w=900&q=80",
+                  num: "02",
+                  tag: "Daily Builds",
+                  sub: "Code deploys daily to staging. Automated tests. Real-time feedback loops.",
+                },
+                {
+                  img: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=900&q=80",
+                  num: "03",
+                  tag: "Live & Monitor",
+                  sub: "Ship to production with confidence. Monitoring, alerts, and instant rollback if needed.",
+                },
+              ].map((card, i) => (
+                <motion.div
+                  key={i}
+                  variants={fadeUp}
+                  className="group relative overflow-hidden rounded-2xl border border-border dark:border-white/10 bg-muted/30 dark:bg-white/[0.01] transition-all hover:border-emerald-500/30"
+                >
+                  {/* Image */}
+                  <div className="relative h-56 overflow-hidden">
+                    <img
+                      src={card.img}
+                      alt={card.tag}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-85"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
                   </div>
+                  {/* Content */}
+                  <div className="p-5">
+                    <p className="text-xs font-semibold text-emerald-400 mb-1">
+                      {card.num} {card.tag}
+                    </p>
+                    <p className="text-sm text-muted-foreground font-light leading-relaxed">
+                      {card.sub}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* WHY US */}
+        <section className="relative py-24 sm:py-32">
+          <div className="container">
+            <motion.div 
+              className="mb-16 text-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-5xl">Why Scalers Choose Us</h2>
+              <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground font-light">
+                Skip the recruiting pipeline. Plug into an elite, battle-tested squad instantly.
+              </p>
+            </motion.div>
+
+            <motion.div 
+              className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              {reasons.map((item, i) => (
+                <motion.div
+                  key={item.title}
+                  variants={fadeUp}
+                  className="group relative rounded-[2rem] border border-border dark:border-white/5 bg-muted/30 dark:bg-white/[0.02] p-8 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-emerald-500/30 dark:hover:border-white/10 hover:bg-muted/60 dark:hover:bg-white/[0.04]"
+                >
+                  <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-muted to-muted/60 dark:from-slate-800 dark:to-slate-900 border border-border dark:border-white/5 text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-500 dark:group-hover:text-emerald-300 shadow-inner">
+                    {item.icon}
+                  </div>
+                  <h3 className="mb-3 font-display text-xl font-bold text-foreground tracking-tight">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground font-light leading-relaxed">{item.description}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* SERVICES / WHAT WE OFFER & TECH STACK */}
+        <section className="relative py-24 sm:py-32">
+          <div className="container">
+            <motion.div 
+              className="mb-16 max-w-3xl"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-5xl">Full-stack mastery.</h2>
+              <p className="mt-4 text-lg text-muted-foreground font-light">
+                We handle the entire vertical. No organizational silos, just smooth execution.
+              </p>
+            </motion.div>
+
+            <motion.div 
+              className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-24"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              {services.map((service, i) => (
+                <motion.div
+                  key={service.title}
+                  variants={fadeUp}
+                  className="group flex gap-4 rounded-2xl border border-transparent p-6 transition-colors hover:bg-white/[0.02]"
+                >
+                  <div className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-muted dark:bg-slate-900 border border-border dark:border-white/5 text-emerald-600 dark:text-emerald-400">
+                    {service.icon}
+                  </div>
+                  <div>
+                    <h3 className="font-display text-lg font-semibold text-foreground">{service.title}</h3>
+                    <p className="mt-2 text-sm text-muted-foreground font-light">{service.description}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* TECH STACK */}
+            <motion.div 
+              className="rounded-[2.5rem] border border-border dark:border-white/5 bg-muted/40 dark:bg-slate-900/30 p-8 sm:p-12 backdrop-blur-2xl"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <div className="mb-10 text-center">
+                <h3 className="font-display text-2xl font-bold text-foreground">Enterprise Grade Technology</h3>
+                <p className="mt-2 text-muted-foreground text-sm">Built for velocity today, scale tomorrow.</p>
+              </div>
+              <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+                {[
+                  { icon: <Smartphone className="mb-4 h-6 w-6 text-emerald-400" />, title: "Frontend & App", desc: "React, Next.js, React Native" },
+                  { icon: <Code2 className="mb-4 h-6 w-6 text-emerald-400" />, title: "Backend & APIs", desc: "Go, Python, Node.js" },
+                  { icon: <Database className="mb-4 h-6 w-6 text-emerald-400" />, title: "Data & AI", desc: "PostgreSQL, Redis, Vector DB" },
+                  { icon: <Blocks className="mb-4 h-6 w-6 text-emerald-400" />, title: "DevOps", desc: "AWS, Docker, K8s" }
+                ].map((stack, idx) => (
+                  <div key={idx} className="flex flex-col items-center text-center">
+                    {stack.icon}
+                    <h4 className="mb-1 text-sm font-semibold uppercase tracking-wider text-foreground/80">{stack.title}</h4>
+                    <p className="text-sm text-muted-foreground/80">{stack.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* SOCIAL PROOF & EXISTING CLIENTS */}
+        <section className="relative py-24 sm:py-32 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-950/10 to-transparent" />
+          <div className="container relative z-10">
+            <motion.div 
+              className="mb-20 text-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-emerald-400">The Squad</p>
+              <h2 className="mx-auto max-w-4xl font-display text-3xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl lg:leading-tight">
+                Engineers from Blinkit, Zomato, Google <span className="text-muted-foreground/60">&</span> Microsoft.
+              </h2>
+            </motion.div>
+
+            <motion.div 
+              className="grid gap-6 md:grid-cols-3"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              {[
+                { name: "Shoppin", logo: "/startup-studio/client-logos/startup-studio-logo-shoppin.png", desc: "E-commerce workflows, checkout, & infra." },
+                { name: "PandaMoney", logo: "/startup-studio/client-logos/startup-studio-logo-pandamoney.png", desc: "Fintech backend, secure APIs, scaled workflows." },
+                { name: "Source Asia", logo: "/startup-studio/client-logos/startup-studio-logo-source-asia.png", desc: "Web platform analytics and stable deployments." },
+              ].map((client) => (
+                <motion.div key={client.name} variants={fadeUp} className="group relative overflow-hidden rounded-[2.5rem] border border-border dark:border-white/5 bg-muted/30 dark:bg-white/[0.01] transition-colors hover:bg-muted/60 dark:hover:bg-white/[0.03]">
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 blur-xl transition-opacity group-hover:opacity-10 bg-emerald-500" />
+                  <div className="relative p-8">
+                    <img src={client.logo} alt={client.name} className="mb-8 h-12 w-auto opacity-80" />
+                    <h3 className="mb-2 font-display text-xl font-bold text-foreground">{client.name}</h3>
+                    <p className="text-sm text-muted-foreground font-light leading-relaxed">{client.desc}</p>
+                    <div className="mt-6 flex flex-wrap gap-2">
+                      <span className="rounded-full border border-border bg-muted/50 px-3 py-1 text-[10px] uppercase tracking-wider text-muted-foreground">Shipped</span>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* HOW IT WORKS & FAQ */}
+        <section className="relative py-24 sm:py-32">
+          <div className="container">
+             <div className="grid gap-16 lg:grid-cols-2">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                >
+                  <h2 className="mb-8 font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">How it works</h2>
+                  <div className="space-y-8">
+                    {[
+                      { step: "01", title: "Share your vision", text: "We unpack your vision and constraints in a focused working session." },
+                      { step: "02", title: "Design & plan", text: "We map the architecture and build plan aligned to your scaling goals." },
+                      { step: "03", title: "Build & push", text: "Weekly iterations with visible code pushes and product demos." },
+                      { step: "04", title: "Scale", text: "Deploy to production, hand over, or retain us to architect the next phase." }
+                    ].map((item) => (
+                      <div key={item.step} className="flex gap-6">
+                        <div className="font-display text-xl font-black text-muted-foreground">{item.step}</div>
+                        <div>
+                          <h3 className="font-display text-lg font-bold text-foreground">{item.title}</h3>
+                          <p className="mt-2 text-sm text-muted-foreground font-light">{item.text}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                >
+                  <h2 className="mb-8 font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">FAQ</h2>
+                  <Accordion type="single" collapsible className="w-full">
+                    {faqs.map((item, idx) => (
+                      <AccordionItem key={idx} value={`faq-${idx}`} className="border-border dark:border-white/10">
+                        <AccordionTrigger className="text-left text-foreground hover:text-emerald-500">{item.q}</AccordionTrigger>
+                        <AccordionContent className="text-muted-foreground font-light leading-relaxed">
+                          {item.a}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </motion.div>
+             </div>
+          </div>
+        </section>
+
+        {/* FINAL CTA */}
+        <section className="relative py-24 sm:py-32">
+          <div className="container relative z-10">
+            <motion.div 
+              className="mx-auto max-w-4xl overflow-hidden rounded-[3rem] border border-border dark:border-white/10 bg-muted/40 dark:bg-slate-900/50 p-10 text-center backdrop-blur-2xl sm:p-16 relative"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-emerald-500/10 to-transparent opacity-50" />
+              <div className="relative text-center mx-auto max-w-2xl">
+                <h2 className="font-display text-3xl font-black tracking-tight text-foreground sm:text-5xl mb-6">
+                  Stop recruiting. <br/> Start shipping.
+                </h2>
+                <p className="mb-10 text-lg text-muted-foreground font-light">
+                  Tell us what you're trying to build or scale. We'll share a concrete execution roadmap before anyone writes a line of code.
+                </p>
+                <div className="flex flex-col justify-center gap-4 sm:flex-row">
+                  <Button asChild size="lg" className="rounded-full h-14 px-10 text-base font-semibold shadow-[0_0_40px_-10px_rgba(59,130,246,0.5)] bg-primary text-primary-foreground hover:bg-primary/90 transition-all">
+                    <Link to="/startup-studio/contact">
+                      Build Your Startup Now
+                    </Link>
+                  </Button>
+                  <Button asChild size="lg" variant="outline" className="rounded-full h-14 px-10 border-border bg-background text-foreground hover:bg-accent transition-all">
+                    <Link to="/startup-studio/contact">Explore Fit</Link>
+                  </Button>
                 </div>
               </div>
-            ))}
+            </motion.div>
           </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="border-b bg-background py-16 sm:py-20">
-        <div className="container">
-          <div className="mx-auto mb-10 max-w-3xl text-center">
-            <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">FAQ</h2>
-            <p className="mt-3 text-sm text-muted-foreground sm:text-base">
-              Short answers to the questions founders ask before they commit.
-            </p>
-          </div>
-
-          <div className="mx-auto max-w-3xl">
-            <Accordion type="single" collapsible className="w-full">
-              {faqs.map((item, idx) => (
-                <AccordionItem key={item.q} value={`faq-${idx}`}>
-                  <AccordionTrigger className="text-left">{item.q}</AccordionTrigger>
-                  <AccordionContent>
-                    <p className="text-muted-foreground">{item.a}</p>
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        </div>
-      </section>
-
-      {/* FINAL CTA */}
-      <section className="bg-background py-16 sm:py-20">
-        <div className="container">
-          <div className="mx-auto max-w-3xl rounded-2xl border bg-card/95 p-8 text-center shadow-sm sm:p-10">
-            <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">
-              Stop hiring. Start building or scaling.
-            </h2>
-            <p className="mt-3 text-sm text-muted-foreground sm:text-base">
-              Tell us what you&apos;re trying to build or scale. We&apos;ll share a concrete plan, timeline, and stack recommendation —
-              before anyone writes a line of code.
-            </p>
-            <div className="mt-6 flex flex-wrap justify-center gap-3">
-              <Button asChild size="lg" className="gap-2 text-base">
-                <Link to="/startup-studio/contact">
-                  Build Your Startup Now
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <Link to="/startup-studio/contact">See if we&apos;re a fit</Link>
-              </Button>
-            </div>
-            <p className="mt-3 text-xs text-muted-foreground">
-              No obligation. If we&apos;re not the right team, we&apos;ll tell you quickly and honestly.
-            </p>
-          </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 };

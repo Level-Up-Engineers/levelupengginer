@@ -4,15 +4,16 @@ import StartupStudio from "@/components/StartupStudio";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Rocket } from "lucide-react";
+import FluidLayout from "@/components/FluidLayout";
 
 const StartupStudioPage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/20">
-      <Navbar />
-      <main>
-        <StartupStudio />
-      </main>
-      <Footer />
+    <div className="bg-background text-foreground dark:bg-slate-950 dark:text-slate-50 min-h-screen">
+        <Navbar />
+        <main>
+          <StartupStudio />
+        </main>
+        <Footer />
 
       {/* Sticky floating CTA */}
       <div className="fixed bottom-6 right-6 z-50">

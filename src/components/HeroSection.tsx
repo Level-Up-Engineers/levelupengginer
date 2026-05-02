@@ -35,7 +35,7 @@ const headingWord = {
 
 const HeroSection = () => {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-accent/50 to-background pb-10 pt-32 lg:pb-14 lg:pt-40">
+    <section className="relative overflow-hidden pb-10 pt-32 lg:pb-14 lg:pt-40">
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
         <svg
           className="hero-network"

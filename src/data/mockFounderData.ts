@@ -1,0 +1,62 @@
+import { FounderUser } from '@/types/auth';
+
+// Mock founder users for development and testing
+export const mockFounderUsers: FounderUser[] = [
+  {
+    id: 'founder-1',
+    email: 'priya@levelup.com',
+    password: 'user123',
+    name: 'Priya Sharma',
+    createdAt: new Date('2024-07-20'),
+    emailVerified: true,
+    onboardingCompleted: true,
+    profile: {
+      companyStage: 'mvp',
+      industry: ['e-commerce', 'saas'],
+      fundingStage: 'seed',
+      technicalBackground: 'technical',
+      previousStartups: 1,
+      ideaSubmissions: ['studio-2'],
+      preferredContactMethod: 'call',
+      teamSize: '2-5',
+    },
+  },
+  {
+    id: 'founder-2',
+    email: 'amit@levelup.com',
+    password: 'user123',
+    name: 'Amit Patel',
+    createdAt: new Date('2024-08-10'),
+    emailVerified: true,
+    onboardingCompleted: true,
+    profile: {
+      companyStage: 'early-stage',
+      industry: ['fintech', 'ai'],
+      fundingStage: 'series-a',
+      technicalBackground: 'mixed',
+      previousStartups: 2,
+      ideaSubmissions: ['studio-3'],
+      preferredContactMethod: 'email',
+      teamSize: '6-10',
+    },
+  },
+  {
+    id: 'founder-3',
+    email: 'lisa@levelup.com',
+    password: 'user123',
+    name: 'Lisa Wong',
+    createdAt: new Date('2024-09-05'),
+    emailVerified: true,
+    onboardingCompleted: true,
+    profile: {
+      companyStage: 'idea',
+      industry: ['healthtech', 'biotech'],
+      fundingStage: 'pre-seed',
+      technicalBackground: 'non-technical',
+      previousStartups: 0,
+      ideaSubmissions: [],
+      preferredContactMethod: 'slack',
+      teamSize: 'solo',
+    },
+  },
+];
