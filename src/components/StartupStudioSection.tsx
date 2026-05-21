@@ -258,7 +258,7 @@ const StartupStudioSection = () => {
         </section>
 
         {/* FREE INNOVATION TOOLS */}
-        <section className="relative py-24 sm:py-32 bg-slate-950/50">
+        <section className="relative py-24 sm:py-32 bg-slate-50/60 dark:bg-slate-950/40 border-y border-slate-100 dark:border-none backdrop-blur-sm">
           <div className="container relative z-10">
             <motion.div 
               className="mb-16 text-center"
@@ -278,16 +278,16 @@ const StartupStudioSection = () => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                className="group relative rounded-[2rem] border border-border dark:border-white/5 bg-muted/20 dark:bg-slate-900/40 p-8 backdrop-blur-xl transition-all duration-300 hover:border-blue-500/30 hover:bg-slate-900/60 flex flex-col"
+                className="group relative rounded-[2rem] border border-slate-200/80 dark:border-white/5 bg-background dark:bg-slate-900/40 p-8 backdrop-blur-xl transition-all duration-300 hover:border-blue-500/30 hover:shadow-lg dark:hover:bg-slate-900/60 flex flex-col shadow-sm"
               >
-                <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-500 shadow-inner">
+                <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 dark:bg-blue-500/10 border border-blue-100 dark:border-blue-500/20 text-blue-600 dark:text-blue-500 shadow-inner">
                   <Calculator className="h-5 w-5" />
                 </div>
                 <h3 className="mb-3 font-display text-2xl font-bold text-foreground tracking-tight">Build vs. Buy Calculator</h3>
                 <p className="text-sm text-muted-foreground font-light leading-relaxed mb-8 flex-grow">
                   Should you build custom idea management or buy off-the-shelf? Get a detailed Year 1 Total Cost of Ownership (TCO) analysis in seconds.
                 </p>
-                <Link to="/startup-studio/build-vs-buy" className="text-sm font-medium text-blue-400 hover:text-blue-300 flex items-center transition-colors">
+                <Link to="/startup-studio/build-vs-buy" className="text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center transition-colors">
                   Free Analysis <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </motion.div>
@@ -297,16 +297,16 @@ const StartupStudioSection = () => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                className="group relative rounded-[2rem] border border-border dark:border-white/5 bg-muted/20 dark:bg-slate-900/40 p-8 backdrop-blur-xl transition-all duration-300 hover:border-emerald-500/30 hover:bg-slate-900/60 flex flex-col"
+                className="group relative rounded-[2rem] border border-slate-200/80 dark:border-white/5 bg-background dark:bg-slate-900/40 p-8 backdrop-blur-xl transition-all duration-300 hover:border-emerald-500/30 hover:shadow-lg dark:hover:bg-slate-900/60 flex flex-col shadow-sm"
               >
-                <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 shadow-inner">
+                <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-100 dark:border-emerald-500/20 text-emerald-600 dark:text-emerald-500 shadow-inner">
                   <BrainCircuit className="h-5 w-5" />
                 </div>
                 <h3 className="mb-3 font-display text-2xl font-bold text-foreground tracking-tight">AI Idea Builder</h3>
                 <p className="text-sm text-muted-foreground font-light leading-relaxed mb-8 flex-grow">
                   Transform your raw concepts into structured product roadmaps. Get AI-powered feedback on market fit, challenges, and technical feasibility.
                 </p>
-                <Link to="/startup-studio/idea-builder" className="text-sm font-medium text-emerald-400 hover:text-emerald-300 flex items-center transition-colors">
+                <Link to="/startup-studio/idea-builder" className="text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center transition-colors">
                   Try AI Analyzer <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </motion.div>
