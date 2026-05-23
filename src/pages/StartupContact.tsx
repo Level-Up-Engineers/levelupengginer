@@ -66,7 +66,7 @@ const StartupContact = () => {
                     </div>
                     <div>
                       <div className="text-sm font-semibold">Email</div>
-                      <div className="text-sm text-muted-foreground">studio@levelupengineers.com</div>
+                      <div className="text-sm text-muted-foreground">contact@levelupengineers.com</div>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
