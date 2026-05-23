@@ -26,11 +26,11 @@ export const IdeaVisualization: React.FC<IdeaVisualizationProps> = ({ graph, isL
 
   const getCategoryColor = (category: string) => {
     const colors: Record<string, string> = {
-      core: '#3b82f6',
-      feature: '#10b981',
-      opportunity: '#f59e0b',
-      challenge: '#ef4444',
-      market: '#8b5cf6',
+      core: '#3b82f6', // blue
+      challenge: '#ef4444', // red
+      solution: '#10b981', // green
+      tech: '#8b5cf6', // purple
+      aitool: '#f59e0b', // amber
     };
 
     return colors[category] || '#6b7280';
@@ -218,16 +218,20 @@ export const IdeaVisualization: React.FC<IdeaVisualizationProps> = ({ graph, isL
             <span className="text-slate-400">Core Idea</span>
           </div>
           <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#ef4444' }} />
+            <span className="text-slate-400">Challenges</span>
+          </div>
+          <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#10b981' }} />
-            <span className="text-slate-400">Features</span>
+            <span className="text-slate-400">Solutions</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#8b5cf6' }} />
+            <span className="text-slate-400">Tech Stack</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#f59e0b' }} />
-            <span className="text-slate-400">Opportunities</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#ef4444' }} />
-            <span className="text-slate-400">Challenges</span>
+            <span className="text-slate-400">AI Tools</span>
           </div>
         </div>
       </div>

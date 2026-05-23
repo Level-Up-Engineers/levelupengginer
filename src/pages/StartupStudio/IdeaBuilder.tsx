@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -10,7 +11,6 @@ import IdeaVisualization from '@/components/ideaBuilder/IdeaVisualization';
 import IdeaResults from '@/components/ideaBuilder/IdeaResults';
 import { ideaBuilderAPI, IdeaAnalysis, IdeaGraph } from '@/lib/ideaBuilderAPI';
 import { startupStudioActivityAPI } from '@/lib/startupStudioActivity';
-import { useAuth } from '@/contexts/AuthContext';
 import {
   Lightbulb,
   ArrowRight,
@@ -21,7 +21,6 @@ import {
 
 const IdeaBuilder = () => {
   const { toast } = useToast();
-  const { user } = useAuth();
   const [founderSummary, setFounderSummary] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [analysis, setAnalysis] = useState<IdeaAnalysis | null>(null);
@@ -59,9 +58,9 @@ const IdeaBuilder = () => {
 
       // Save this startup studio activity for admin review
       startupStudioActivityAPI.addActivity({
-        userId: user?.id,
-        name: user?.name || 'Guest User',
-        email: user?.email || 'guest@levelup.com',
+        userId: 'guest',
+        name: 'Guest User',
+        email: 'guest@levelup.com',
         ideaSummary: founderSummary,
         status: 'new',
         recommendedAction:
@@ -306,9 +305,11 @@ Be specific and detailed for better analysis."
             <p className="mb-6 text-slate-300">
               Now that you have a clear strategy, let our expert team help you execute and bring your idea to life.
             </p>
-            <Button size="lg" className="gap-2 bg-primary hover:bg-primary/90">
-              Book a Free Strategy Call
-              <ArrowRight className="h-4 w-4" />
+            <Button asChild size="lg" className="gap-2 bg-primary hover:bg-primary/90">
+              <Link to="/startup-studio/contact">
+                Book a Free Strategy Call
+                <ArrowRight className="h-4 w-4" />
+              </Link>
             </Button>
           </motion.div>
         )}

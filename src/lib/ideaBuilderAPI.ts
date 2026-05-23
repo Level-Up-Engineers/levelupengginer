@@ -1,20 +1,50 @@
-// Llama3 API integration for idea analysis and summarization
+// Gemini API / AI API integration for idea analysis and summarization
 
 export interface IdeaAnalysis {
   summary: string;
-  keyPoints: string[];
-  potentials: string[];
-  suggestedImprovements: string[];
-  marketOpportunities: string[];
-  technicalChallenges: string[];
-  businessModel: string;
-  targetAudience: string;
+  branding: {
+    name: string;
+    tagline: string;
+    colors: string[];
+    voice: string;
+  };
+  industryInsights: string[];
+  swot: {
+    strengths: string[];
+    weaknesses: string[];
+    opportunities: string[];
+    threats: string[];
+  };
+  pestel: {
+    political: string[];
+    economic: string[];
+    social: string[];
+    technological: string[];
+    environmental: string[];
+    legal: string[];
+  };
+  marketResearch: {
+    targetAudience: string;
+    tam: string;
+    competitors: string[];
+  };
+  businessOnePager: string;
+  prd: string[];
+  pathToMvp: string[];
+  marketingPlan: string[];
+  goToMarket: string[];
+  challengesAndSolutions: Array<{
+    challenge: string;
+    solution: string;
+    tech: string;
+    aiTools: string[];
+  }>;
 }
 
 export interface GraphNode {
   id: string;
   label: string;
-  category: 'core' | 'feature' | 'market' | 'challenge' | 'opportunity';
+  category: 'core' | 'challenge' | 'solution' | 'tech' | 'aitool';
   connections: string[];
 }
 
@@ -23,71 +53,104 @@ export interface IdeaGraph {
   edges: Array<{ source: string; target: string; label: string }>;
 }
 
-const LLAMA_API_ENDPOINT = import.meta.env.VITE_LLAMA_API_URL || 'http://localhost:11434/api/generate';
+const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || '';
 
 export const ideaBuilderAPI = {
   /**
-   * Analyzes founder's idea summary using Llama3
+   * Analyzes founder's idea summary using Gemini API
    */
   analyzeIdea: async (founderSummary: string): Promise<IdeaAnalysis> => {
     try {
-      const prompt = `You are an expert startup advisor and AI builder. Analyze this startup idea and provide structured feedback.
+      const prompt = `You are an expert startup advisor and elite silicon valley product manager. 
+Analyze the following startup idea realistically and factually. Provide brutally honest, highly accurate, and actionable feedback covering all the required areas.
 
 Founder's Idea:
 "${founderSummary}"
 
-Please provide your analysis in the following JSON format:
+Please provide your analysis in the following JSON format precisely:
 {
-  "summary": "A concise 2-3 sentence summary of the idea",
-  "keyPoints": ["3-5 key insights about the idea"],
-  "potentials": ["3-5 major potential opportunities"],
-  "suggestedImprovements": ["3-5 specific improvements to make the idea stronger"],
-  "marketOpportunities": ["2-3 market opportunities identified"],
-  "technicalChallenges": ["2-3 main technical challenges to solve"],
-  "businessModel": "Suggested business model for this idea",
-  "targetAudience": "Primary target audience description"
+  "summary": "A concise 2-3 sentence summary of the idea, evaluating its core premise.",
+  "branding": {
+    "name": "Suggested startup name",
+    "tagline": "Catchy tagline",
+    "colors": ["#Hex1", "#Hex2"],
+    "voice": "Brand voice description"
+  },
+  "industryInsights": ["3 key factual insights about this industry"],
+  "swot": {
+    "strengths": ["2-3 strengths"],
+    "weaknesses": ["2-3 weaknesses"],
+    "opportunities": ["2-3 opportunities"],
+    "threats": ["2-3 threats"]
+  },
+  "pestel": {
+    "political": ["1-2 political factors"],
+    "economic": ["1-2 economic factors"],
+    "social": ["1-2 social factors"],
+    "technological": ["1-2 tech factors"],
+    "environmental": ["1-2 environmental factors"],
+    "legal": ["1-2 legal factors"]
+  },
+  "marketResearch": {
+    "targetAudience": "Precise primary target audience description",
+    "tam": "Realistic Total Addressable Market (TAM) estimate",
+    "competitors": ["3 realistic potential competitors"]
+  },
+  "businessOnePager": "A detailed 2-paragraph business one-pager",
+  "prd": ["3-5 core Product Requirements for MVP"],
+  "pathToMvp": ["3-5 step-by-step milestones to launch MVP"],
+  "marketingPlan": ["2-3 actionable marketing strategies"],
+  "goToMarket": ["2-3 concrete go-to-market strategies"],
+  "challengesAndSolutions": [
+    {
+      "challenge": "A specific technical or business challenge",
+      "solution": "How to solve it realistically",
+      "tech": "Specific technology to use",
+      "aiTools": ["AI tool 1", "AI tool 2"]
+    }
+  ]
 }
 
-Respond ONLY with valid JSON, no additional text.`;
+Respond ONLY with valid JSON. Do not include markdown formatting or backticks. Make sure there are 3 challengesAndSolutions minimum.`;
 
-      const response = await fetch(LLAMA_API_ENDPOINT, {
+      if (!GEMINI_API_KEY) {
+        console.warn('VITE_GEMINI_API_KEY is not set. Falling back to mock data.');
+        return ideaBuilderAPI.getMockAnalysis(founderSummary);
+      }
+
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${GEMINI_API_KEY}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          model: 'llama2',
-          prompt: prompt,
-          stream: false,
-          temperature: 0.7,
+          contents: [{
+            parts: [{ text: prompt }]
+          }],
+          generationConfig: {
+            responseMimeType: "application/json",
+            temperature: 0.2
+          }
         }),
       });
 
       if (!response.ok) {
-        throw new Error(`API error: ${response.statusText}`);
+        const errData = await response.text();
+        throw new Error(`API error: ${response.statusText} - ${errData}`);
       }
 
       const data = await response.json();
       
-      // Parse the response from Llama3
       try {
-        const analysisText = data.response || data.text || '';
-        // Extract JSON from the response (in case there's extra text)
-        const jsonMatch = analysisText.match(/\{[\s\S]*\}/);
-        if (!jsonMatch) {
-          throw new Error('No valid JSON in response');
-        }
-        
-        const analysis = JSON.parse(jsonMatch[0]) as IdeaAnalysis;
+        const analysisText = data.candidates[0].content.parts[0].text;
+        const analysis = JSON.parse(analysisText) as IdeaAnalysis;
         return analysis;
       } catch (parseError) {
-        console.error('Failed to parse Llama3 response:', parseError);
-        // Return mock data for demo purposes
+        console.error('Failed to parse Gemini response:', parseError);
         return ideaBuilderAPI.getMockAnalysis(founderSummary);
       }
     } catch (error) {
-      console.error('Error calling Llama3 API:', error);
-      // Return mock data as fallback
+      console.error('Error calling Gemini API:', error);
       return ideaBuilderAPI.getMockAnalysis(founderSummary);
     }
   },
@@ -102,56 +165,66 @@ Respond ONLY with valid JSON, no additional text.`;
     // Core idea node
     nodes.push({
       id: 'core-idea',
-      label: analysis.businessModel || 'Core Idea',
+      label: analysis.branding.name || 'Startup',
       category: 'core',
       connections: [],
     });
 
-    // Add feature nodes from key points
-    analysis.keyPoints.forEach((point, idx) => {
-      const nodeId = `feature-${idx}`;
-      nodes.push({
-        id: nodeId,
-        label: point.substring(0, 50) + (point.length > 50 ? '...' : ''),
-        category: 'feature',
-        connections: ['core-idea'],
-      });
-      edges.push({
-        source: 'core-idea',
-        target: nodeId,
-        label: 'includes',
-      });
-    });
+    // Add nodes from challenges and solutions
+    analysis.challengesAndSolutions.forEach((cs, idx) => {
+      const challengeId = `challenge-${idx}`;
+      const solutionId = `solution-${idx}`;
+      const techId = `tech-${idx}`;
 
-    // Add market nodes from potentials
-    analysis.potentials.forEach((potential, idx) => {
-      const nodeId = `market-${idx}`;
       nodes.push({
-        id: nodeId,
-        label: potential.substring(0, 50) + (potential.length > 50 ? '...' : ''),
-        category: 'opportunity',
-        connections: ['core-idea'],
-      });
-      edges.push({
-        source: 'core-idea',
-        target: nodeId,
-        label: 'opportunity',
-      });
-    });
-
-    // Add challenge nodes
-    analysis.technicalChallenges.forEach((challenge, idx) => {
-      const nodeId = `challenge-${idx}`;
-      nodes.push({
-        id: nodeId,
-        label: challenge.substring(0, 50) + (challenge.length > 50 ? '...' : ''),
+        id: challengeId,
+        label: cs.challenge.substring(0, 50) + (cs.challenge.length > 50 ? '...' : ''),
         category: 'challenge',
         connections: ['core-idea'],
       });
       edges.push({
         source: 'core-idea',
-        target: nodeId,
-        label: 'challenge',
+        target: challengeId,
+        label: 'faces',
+      });
+
+      nodes.push({
+        id: solutionId,
+        label: cs.solution.substring(0, 50) + (cs.solution.length > 50 ? '...' : ''),
+        category: 'solution',
+        connections: [challengeId],
+      });
+      edges.push({
+        source: challengeId,
+        target: solutionId,
+        label: 'solved by',
+      });
+
+      nodes.push({
+        id: techId,
+        label: cs.tech.substring(0, 50) + (cs.tech.length > 50 ? '...' : ''),
+        category: 'tech',
+        connections: [solutionId],
+      });
+      edges.push({
+        source: solutionId,
+        target: techId,
+        label: 'implemented with',
+      });
+
+      cs.aiTools.forEach((tool, tIdx) => {
+        const toolId = `aitool-${idx}-${tIdx}`;
+        nodes.push({
+          id: toolId,
+          label: tool.substring(0, 50) + (tool.length > 50 ? '...' : ''),
+          category: 'aitool',
+          connections: [solutionId],
+        });
+        edges.push({
+          source: solutionId,
+          target: toolId,
+          label: 'using',
+        });
       });
     });
 
@@ -163,35 +236,71 @@ Respond ONLY with valid JSON, no additional text.`;
    */
   getMockAnalysis: (founderSummary: string): IdeaAnalysis => {
     return {
-      summary: `This is an innovative startup idea that combines modern technology with market demand. The concept shows strong potential for disruption in its target market segment.`,
-      keyPoints: [
-        'Clear market problem identification',
-        'Unique value proposition',
-        'Scalable technology foundation',
-        'Strong founder background',
+      summary: "This is a fallback summary since the API key is not set. The idea involves solving a specific problem in a growing market.",
+      branding: {
+        name: "MockApp",
+        tagline: "The best mock app ever",
+        colors: ["#3b82f6", "#10b981"],
+        voice: "Professional and innovative"
+      },
+      industryInsights: [
+        "The market is growing rapidly.",
+        "There is a shift towards automation.",
+        "Customers expect seamless experiences."
       ],
-      potentials: [
-        'Large addressable market opportunity',
-        'First-mover advantage potential',
-        'Network effects as company scales',
-        'Multiple revenue stream possibilities',
+      swot: {
+        strengths: ["Innovative tech", "Strong team"],
+        weaknesses: ["No brand recognition", "Limited initial capital"],
+        opportunities: ["Expanding global market", "New AI capabilities"],
+        threats: ["Established competitors", "Changing regulations"]
+      },
+      pestel: {
+        political: ["Data privacy laws"],
+        economic: ["Economic downturns affecting budgets"],
+        social: ["Shift to remote work"],
+        technological: ["Rapid AI advancements"],
+        environmental: ["Green computing initiatives"],
+        legal: ["IP protection"]
+      },
+      marketResearch: {
+        targetAudience: "Small to medium enterprises looking to automate workflows",
+        tam: "$5 Billion globally",
+        competitors: ["Competitor A", "Competitor B"]
+      },
+      businessOnePager: "MockApp is a revolutionary platform designed to solve X by doing Y. It targets Z and expects to capture 1% of the market in year 1.",
+      prd: [
+        "User authentication and authorization",
+        "Core workflow engine",
+        "Dashboard and analytics"
       ],
-      suggestedImprovements: [
-        'Develop detailed go-to-market strategy',
-        'Build MVP to validate core assumptions',
-        'Establish advisory board with industry experts',
-        'Create detailed financial projections',
+      pathToMvp: [
+        "Finalize designs",
+        "Develop core backend",
+        "Implement frontend MVP",
+        "Beta testing"
       ],
-      marketOpportunities: [
-        'Global market expansion potential',
-        'B2B2C partnership opportunities',
+      marketingPlan: [
+        "Content marketing on LinkedIn",
+        "Targeted ads for B2B"
       ],
-      technicalChallenges: [
-        'Scalability architecture for high volume',
-        'Data privacy and security compliance',
+      goToMarket: [
+        "Direct sales to mid-market",
+        "Partnerships with agencies"
       ],
-      businessModel: 'Freemium SaaS with enterprise licensing',
-      targetAudience: 'Small to medium-sized businesses looking for efficiency improvements',
+      challengesAndSolutions: [
+        {
+          challenge: "Scaling the database",
+          solution: "Use distributed database architecture",
+          tech: "PostgreSQL with Citus",
+          aiTools: ["Claude for query optimization"]
+        },
+        {
+          challenge: "User retention",
+          solution: "Implement personalized recommendations",
+          tech: "Redis caching + ML pipeline",
+          aiTools: ["Gemini 1.5 Pro for analysis"]
+        }
+      ]
     };
   },
 };
