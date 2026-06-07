@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Calculator, Settings, ShoppingCart, Zap, AlertCircle } from "lucide-react";
+import Seo from "@/components/Seo";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -35,6 +36,10 @@ const BuildVsBuyCalculator = () => {
 
   return (
     <div className="min-h-screen bg-[#020617] text-slate-200">
+      <Seo
+        title="Build vs Buy Calculator for Startups | Level Up Engineers"
+        description="Estimate and compare the cost of building custom software versus buying off-the-shelf tools with our free build vs buy calculator for startup founders."
+      />
       <Navbar />
 
       <main className="container pt-32 pb-20 max-w-6xl">

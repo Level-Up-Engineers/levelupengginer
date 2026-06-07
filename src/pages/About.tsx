@@ -1,3 +1,4 @@
+import Seo from "@/components/Seo";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import InstructorShowcase from "@/components/InstructorShowcase";
@@ -24,6 +25,10 @@ const iconMap: Record<string, React.ReactNode> = {
 const About = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/20">
+      <Seo
+        title="About Us – Mentors from Top Tech Firms | Level Up Engineers"
+        description="Meet the team behind Level Up Engineers — engineers from FAANG and top product companies offering 1:1 mentorship, real projects and placement support."
+      />
       <Navbar />
       <main>
         {/* Hero */}

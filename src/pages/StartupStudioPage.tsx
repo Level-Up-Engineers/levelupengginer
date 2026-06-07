@@ -1,3 +1,4 @@
+import Seo from "@/components/Seo";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StartupStudio from "@/components/StartupStudio";
@@ -9,6 +10,10 @@ import FluidLayout from "@/components/FluidLayout";
 const StartupStudioPage = () => {
   return (
     <div className="bg-background text-foreground dark:bg-slate-950 dark:text-slate-50 min-h-screen">
+        <Seo
+          title="Startup Studio – Build Your MVP Fast | Level Up Engineers"
+          description="Turn your idea into a production-ready MVP with our startup studio. Product strategy, design and engineering from experienced builders — book a free call."
+        />
         <Navbar />
         <main>
           <StartupStudio />

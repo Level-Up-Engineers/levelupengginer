@@ -1,8 +1,9 @@
 import { useParams, Navigate } from "react-router-dom";
+import Seo from "@/components/Seo";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import LeadCaptureForm from "@/components/LeadCaptureForm";
-import { courses } from "@/lib/courseData";
+import { courses, courseSeo } from "@/lib/courseData";
 import { Clock, CheckCircle2, Code, Server, Cloud, Layers, Database, Smartphone, IndianRupee, Briefcase } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -23,8 +24,14 @@ const CoursePage = () => {
 
   if (!course) return <Navigate to="/" replace />;
 
+  const seo = courseSeo[course.slug] ?? {
+    title: `${course.shortTitle} Course | Level Up Engineers`,
+    description: course.description.slice(0, 155),
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/20">
+      <Seo title={seo.title} description={seo.description} />
       <Navbar />
       <main className="pt-20">
         {/* Hero */}

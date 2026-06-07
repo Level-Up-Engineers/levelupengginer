@@ -1,3 +1,4 @@
+import Seo from "@/components/Seo";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StartupDiscoveryForm from "@/components/StartupDiscoveryForm";
@@ -7,6 +8,10 @@ import { motion } from "framer-motion";
 const StartupContact = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/20">
+      <Seo
+        title="Free Discovery Call – Startup Studio | Level Up Engineers"
+        description="Tell us about your startup idea and book a free discovery call. Our studio team will help you scope, design and build your MVP the right way, end to end."
+      />
       <Navbar />
       <main className="pt-20">
         <section className="py-20">

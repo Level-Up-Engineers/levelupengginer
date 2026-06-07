@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import Seo from "@/components/Seo";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import LeadCaptureForm from "@/components/LeadCaptureForm";
@@ -68,6 +69,10 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/20 transition-colors duration-500">
+      <Seo
+        title="Contact Us – Free Counseling Session | Level Up Engineers"
+        description="Get in touch with Level Up Engineers for course details, mentorship and placement support. Book a free 1-on-1 counseling session with our mentors today."
+      />
       <Navbar />
       <main className="pt-20">
         <section className="py-16 md:py-24">
