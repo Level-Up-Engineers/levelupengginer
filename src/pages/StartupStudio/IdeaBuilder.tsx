@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import Seo from '@/components/Seo';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -95,6 +96,10 @@ const IdeaBuilder = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/20">
+      <Seo
+        title="Free AI Idea Builder for Startup Ideas | Level Up Engineers"
+        description="Describe your startup idea and get an instant, free AI-powered analysis — market fit, features, risks and a build roadmap from our startup studio team."
+      />
       <Navbar />
 
       <main className="container pt-28 pb-12 md:pt-32 md:pb-20">

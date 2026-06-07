@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Instagram } from "lucide-react";
 import logo from "@/assets/logo.jpeg";
 
 const Footer = () => {
@@ -16,6 +16,26 @@ const Footer = () => {
             <p className="text-sm text-muted-foreground dark:text-slate-400">
               Empowering engineers to crack top tech companies with expert mentorship and structured learning.
             </p>
+            <div className="flex items-center gap-3">
+              <a
+                href="https://www.linkedin.com/company/levelupengineers/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Level Up Engineers on LinkedIn"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                <Linkedin className="h-5 w-5" />
+              </a>
+              <a
+                href="https://www.instagram.com/level_up_engineers/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Level Up Engineers on Instagram"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                <Instagram className="h-5 w-5" />
+              </a>
+            </div>
           </div>
           {/* Quick Links */}
           <div>

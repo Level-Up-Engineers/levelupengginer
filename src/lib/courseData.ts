@@ -501,8 +501,36 @@ export const courses: Course[] = [
         ]
       }
     ]
-  }    
+  }
 ];
+
+/** Per-course SEO metadata (title 55–60 chars, description 150–155 chars). */
+export const courseSeo: Record<string, { title: string; description: string }> = {
+  "interview-prep": {
+    title: "Interview Prep – DSA & System Design | Level Up Engineers",
+    description: "3-month intensive interview prep: 200+ DSA problems, CS fundamentals, system design and mock interviews with FAANG mentors. Crack top product companies.",
+  },
+  "backend-engineering": {
+    title: "Backend Engineering Course & Mentorship | Level Up Engineers",
+    description: "Master backend engineering — APIs, databases, microservices, cloud and scalable system design. 1:1 mentorship, real projects and mock interviews included.",
+  },
+  "devops-sre": {
+    title: "DevOps + SRE Course – Cloud, K8s, CI/CD | Level Up Engineers",
+    description: "Learn DevOps and SRE hands-on — Linux, cloud infrastructure, Kubernetes, CI/CD and observability tooling. Real projects, 1:1 mentorship and interview prep.",
+  },
+  "full-stack": {
+    title: "Full Stack Engineering Course Online | Level Up Engineers",
+    description: "Become a full stack engineer — modern frontend, backend APIs, databases and deployment. Build portfolio projects with 1:1 mentorship and interview prep.",
+  },
+  "data-engineering": {
+    title: "Data Engineering Course – ETL, Big Data | Level Up Engineers",
+    description: "Learn data engineering end to end — data modeling, warehousing, ETL pipelines, big data and streaming. Real projects, 1:1 mentorship and interview prep.",
+  },
+  "android-engineering": {
+    title: "Android Course – Kotlin & Jetpack Apps | Level Up Engineers",
+    description: "Build production Android apps with Kotlin, Jetpack and modern architecture. Real projects, 1:1 mentorship and interview prep from top mobile engineers.",
+  },
+};
 
 export interface Instructor {
   name: string;
