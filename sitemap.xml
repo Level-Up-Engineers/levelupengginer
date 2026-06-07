@@ -7,21 +7,21 @@
 
   <!-- Main Pages -->
   <url>
-    <loc>https://levelupengineer.com/</loc>
+    <loc>https://levelupengineers.com/</loc>
     <lastmod>2026-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://levelupengineer.com/about</loc>
+    <loc>https://levelupengineers.com/about</loc>
     <lastmod>2026-06-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://levelupengineer.com/contact</loc>
+    <loc>https://levelupengineers.com/contact</loc>
     <lastmod>2026-06-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -29,49 +29,49 @@
 
   <!-- Courses -->
   <url>
-    <loc>https://levelupengineer.com/courses</loc>
+    <loc>https://levelupengineers.com/courses</loc>
     <lastmod>2026-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://levelupengineer.com/courses/interview-prep</loc>
+    <loc>https://levelupengineers.com/courses/interview-prep</loc>
     <lastmod>2026-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://levelupengineer.com/courses/backend-engineering</loc>
+    <loc>https://levelupengineers.com/courses/backend-engineering</loc>
     <lastmod>2026-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://levelupengineer.com/courses/devops-sre</loc>
+    <loc>https://levelupengineers.com/courses/devops-sre</loc>
     <lastmod>2026-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://levelupengineer.com/courses/full-stack</loc>
+    <loc>https://levelupengineers.com/courses/full-stack</loc>
     <lastmod>2026-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://levelupengineer.com/courses/data-engineering</loc>
+    <loc>https://levelupengineers.com/courses/data-engineering</loc>
     <lastmod>2026-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://levelupengineer.com/courses/android-engineering</loc>
+    <loc>https://levelupengineers.com/courses/android-engineering</loc>
     <lastmod>2026-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -79,28 +79,28 @@
 
   <!-- Startup Studio -->
   <url>
-    <loc>https://levelupengineer.com/startup-studio</loc>
+    <loc>https://levelupengineers.com/startup-studio</loc>
     <lastmod>2026-06-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://levelupengineer.com/startup-studio/contact</loc>
+    <loc>https://levelupengineers.com/startup-studio/contact</loc>
     <lastmod>2026-06-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
-    <loc>https://levelupengineer.com/startup-studio/idea-builder</loc>
+    <loc>https://levelupengineers.com/startup-studio/idea-builder</loc>
     <lastmod>2026-06-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://levelupengineer.com/startup-studio/build-vs-buy</loc>
+    <loc>https://levelupengineers.com/startup-studio/build-vs-buy</loc>
     <lastmod>2026-06-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
