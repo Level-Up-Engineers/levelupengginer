@@ -16,17 +16,43 @@ const StartupDiscoveryForm = () => {
   });
   const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    setTimeout(() => {
+    try {
+      const res = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          mode: "startup",
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          startupName: formData.startupName,
+          topic: formData.stage,
+          message: formData.message,
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.error || "Submission failed");
+      }
+
       toast({
         title: "Discovery call request received! 🚀",
         description: "Our team will reach out within 24 hours to schedule your free session.",
       });
       setFormData({ name: "", email: "", phone: "", startupName: "", stage: "", message: "" });
+    } catch {
+      toast({
+        title: "Something went wrong",
+        description: "Please try again, or reach us directly at contact@levelupengineers.com.",
+        variant: "destructive",
+      });
+    } finally {
       setSubmitting(false);
-    }, 800);
+    }
   };
 
   return (

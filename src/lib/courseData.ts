@@ -423,8 +423,8 @@ export const courses: Course[] = [
     description: "Become a Generative AI engineer by mastering LLMs, prompt engineering, RAG, AI agents, fine-tuning and production deployment — with real projects, internship, and interview prep for AI roles.",
     overview: "A 4-month hands-on Generative AI engineering program — from Python and ML foundations to LLM applications, retrieval-augmented generation, AI agents, fine-tuning, and production LLMOps. Build real GenAI products, complete a 2-month industry internship, and get 1:1 mentorship, mock interviews, and placement support.",
     icon: "Brain",
-    basePrice: 24999,
-    internshipPrice: 32999,
+    basePrice: 22999,
+    internshipPrice: 29999,
     internshipDuration: "2 Months",
     highlights: [
       "1:1 Mentorship from AI engineers at top companies",
