@@ -56,12 +56,22 @@ const LeadCaptureForm = ({
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
 
-    // Simulate submission
-    setTimeout(() => {
+    try {
+      const res = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mode: activeMode, ...formData }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.error || "Submission failed");
+      }
+
       if (activeMode === "counseling") {
         toast({
           title: "Counseling Session Booked! 🎓",
@@ -73,7 +83,7 @@ const LeadCaptureForm = ({
           description: "Our Startup Studio team will get back to you within 24 hours.",
         });
       }
-      
+
       // Reset form (keeping preselected options if any)
       setFormData({
         name: "",
@@ -84,8 +94,15 @@ const LeadCaptureForm = ({
         topic: preselectedTopic || "",
         message: "",
       });
+    } catch {
+      toast({
+        title: "Something went wrong",
+        description: "Please try again, or reach us directly at contact@levelupengineers.com.",
+        variant: "destructive",
+      });
+    } finally {
       setSubmitting(false);
-    }, 800);
+    }
   };
 
   const tabs = [
