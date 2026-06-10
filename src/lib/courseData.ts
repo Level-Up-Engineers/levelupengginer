@@ -416,88 +416,91 @@ export const courses: Course[] = [
     ]
   },
   {
-    slug: "android-engineering",
-    title: "Android Engineering Program",
-    shortTitle: "Android Engineering",
+    slug: "generative-ai",
+    title: "Generative AI Engineering Program",
+    shortTitle: "Generative AI Engineering",
     duration: "4 Months",
-    description: "Become a professional Android engineer by mastering Kotlin, Android SDK, Jetpack, app architecture, real projects, and interview skills — ready for mobile development roles.",
-    overview: "A 4-month hands-on Android engineering program — from Kotlin fundamentals and Android platform essentials to advanced app architecture, real-world projects, mock interview prep, and placement support. Learn by building production-grade apps, portfolio showcases, and get 1:1 mentorship and referrals.",
-    icon: "Mobile",
-    basePrice: 19999,
-    internshipPrice: 27999,
+    description: "Become a Generative AI engineer by mastering LLMs, prompt engineering, RAG, AI agents, fine-tuning and production deployment — with real projects, internship, and interview prep for AI roles.",
+    overview: "A 4-month hands-on Generative AI engineering program — from Python and ML foundations to LLM applications, retrieval-augmented generation, AI agents, fine-tuning, and production LLMOps. Build real GenAI products, complete a 2-month industry internship, and get 1:1 mentorship, mock interviews, and placement support.",
+    icon: "Brain",
+    basePrice: 24999,
+    internshipPrice: 32999,
     internshipDuration: "2 Months",
     highlights: [
-      "1:1 Mentorship from Android leads",
-      "Build production-ready mobile apps",
-      "Kotlin & Android Studio mastery",
-      "Jetpack & modern Android architecture",
-      "Mock technical interviews & review",
-      "Portfolio projects + Google Play deployment",
-      "Resume review & referrals",
-      "Placement support & career coaching"
+      "1:1 Mentorship from AI engineers at top companies",
+      "Build production-ready GenAI applications",
+      "LLMs, prompt engineering & RAG mastery",
+      "AI agents, tool use & multi-agent systems",
+      "Fine-tuning & LLMOps for production",
+      "2-month internship on real AI products",
+      "Mock technical interviews & resume review",
+      "Placement support & referrals for AI roles"
     ],
     modules: [
       {
-        title: "Foundation – Kotlin & Android Basics",
+        title: "Foundation – Python & ML Essentials for GenAI",
         topics: [
-          "Kotlin language fundamentals & idioms",
-          "Android Studio setup & tools",
-          "Android application components (Activities, Fragments)",
-          "Layouts, Views & UI fundamentals",
-          "Application lifecycles & navigation",
-          "Jetpack Compose basics"
+          "Python for AI engineering (NumPy, Pandas, APIs)",
+          "Machine learning & deep learning fundamentals",
+          "Neural networks & transformer architecture intuition",
+          "How LLMs work: tokens, embeddings & attention",
+          "GenAI landscape: GPT, Claude, Gemini & open-source models",
+          "Setting up your GenAI development environment"
         ]
       },
       {
-        title: "Core Android Development",
+        title: "LLM Applications & Prompt Engineering",
         topics: [
-          "RecyclerView & dynamic lists",
-          "Networking & REST API integration",
-          "Data storage: SQLite, Room & Shared Preferences",
-          "Coroutines & background processing",
-          "Material Design & responsive UI",
-          "Permissions, sensors & device features"
+          "Prompt engineering techniques & patterns",
+          "Working with LLM APIs (OpenAI, Anthropic, open-source)",
+          "Structured outputs, function calling & tool use",
+          "Context windows, token limits & cost optimization",
+          "Streaming, chat memory & conversation design",
+          "Evaluating LLM outputs & guardrails"
         ]
       },
       {
-        title: "Advanced Architecture & Patterns",
+        title: "RAG & Vector Databases",
         topics: [
-          "MVVM & Clean Architecture",
-          "Dependency Injection (Hilt/Dagger)",
-          "State management & UI patterns",
-          "Testing & debugging with Android tools",
-          "Performance optimization",
-          "Offline sync & caching strategies"
+          "Embeddings & semantic search fundamentals",
+          "Vector databases (Pinecone, Chroma, pgvector)",
+          "Document chunking & ingestion pipelines",
+          "Building end-to-end RAG systems",
+          "Hybrid search, re-ranking & retrieval optimization",
+          "RAG evaluation & hallucination reduction"
         ]
       },
       {
-        title: "Deployment & Professional Practices",
+        title: "AI Agents & Advanced GenAI",
         topics: [
-          "Publishing apps to Google Play Store",
-          "CI/CD basics for Android apps",
-          "App signing, builds & flavors",
-          "Crash reporting & analytics setup",
-          "Security best practices"
+          "Agentic workflows & reasoning loops",
+          "Building agents with LangChain & LangGraph",
+          "Multi-agent systems & orchestration",
+          "Model Context Protocol (MCP) & tool integrations",
+          "Fine-tuning & LoRA for custom models",
+          "Multimodal AI: images, audio & vision models"
         ]
       },
       {
-        title: "Real Projects & Portfolio Builds",
+        title: "Production GenAI – LLMOps & Deployment",
         topics: [
-          "Build E-commerce Android App(product lists, cart, orders)",
-          "Build Chat/Messaging App with real-time updates",
-          "Build Social Feed App (profiles, posts, likes)",
-          "Build Location & Maps App (geolocation & routing)",
-          "Deploy projects to Google Play Store"
+          "Deploying GenAI apps (FastAPI, Docker, cloud)",
+          "LLM observability, tracing & monitoring",
+          "Caching, rate limiting & cost management",
+          "Security: prompt injection & data privacy",
+          "A/B testing & evaluation pipelines in production",
+          "Scaling GenAI systems & best practices"
         ]
       },
       {
-        title: "Interview Prep & Mock Interview Module",
+        title: "Real Projects, Internship & Mock Interview Module",
         topics: [
-          "Android interview Q&A & problem sets",
-          "Mock interviews with senior engineers",
-          "Android architectural & design discussions",
-          "Debugging challenge rounds",
-          "Portfolio walkthrough & resume coaching"
+          "Build an AI chatbot with RAG over custom knowledge base",
+          "Build an autonomous AI agent (research / workflow automation)",
+          "Build a document intelligence app (summarization & Q&A)",
+          "Fine-tune & deploy a custom model end-to-end",
+          "2-month internship: ship GenAI features on real products",
+          "Mock interviews, portfolio walkthrough & resume coaching"
         ]
       }
     ]
@@ -526,9 +529,9 @@ export const courseSeo: Record<string, { title: string; description: string }> =
     title: "Data Engineering Course – ETL, Big Data | Level Up Engineers",
     description: "Learn data engineering end to end — data modeling, warehousing, ETL pipelines, big data and streaming. Real projects, 1:1 mentorship and interview prep.",
   },
-  "android-engineering": {
-    title: "Android Course – Kotlin & Jetpack Apps | Level Up Engineers",
-    description: "Build production Android apps with Kotlin, Jetpack and modern architecture. Real projects, 1:1 mentorship and interview prep from top mobile engineers.",
+  "generative-ai": {
+    title: "Generative AI Course – LLMs, RAG, Agents | Level Up Engineers",
+    description: "Build production GenAI apps with LLMs, prompt engineering, RAG and AI agents. Real projects, 2-month internship, 1:1 mentorship and interview prep.",
   },
 };
 

@@ -8,7 +8,7 @@ const Courses = () => {
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/20">
       <Seo
         title="Engineering Courses with 1:1 Mentorship | Level Up Engineers"
-        description="Explore mentor-led programs in interview prep, backend, DevOps & SRE, full stack, data and Android engineering — built by engineers from top companies."
+        description="Explore mentor-led programs in interview prep, backend, DevOps & SRE, full stack, data and generative AI engineering — built by engineers from top companies."
       />
       <Navbar />
       <main className="pt-20">

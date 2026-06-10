@@ -7,7 +7,7 @@ export const courseCategories = {
   'devops-sre': { category: 'devops', tags: ['devops', 'cloud', 'kubernetes', 'ci-cd'], difficulty: 'intermediate' as const },
   'full-stack': { category: 'development', tags: ['frontend', 'backend', 'fullstack', 'react'], difficulty: 'intermediate' as const },
   'data-engineering': { category: 'data', tags: ['data', 'etl', 'big-data', 'analytics'], difficulty: 'intermediate' as const },
-  'android-engineering': { category: 'mobile', tags: ['mobile', 'android', 'kotlin'], difficulty: 'intermediate' as const },
+  'generative-ai': { category: 'ai', tags: ['ai', 'llm', 'genai', 'machine-learning'], difficulty: 'intermediate' as const },
 };
 
 // Course recommendation relationships
@@ -30,15 +30,15 @@ export const courseRecommendations: Record<string, { slug: string; reason: strin
   'full-stack': [
     { slug: 'devops-sre', reason: 'Master deployment and infrastructure' },
     { slug: 'backend-engineering', reason: 'Deepen your backend expertise' },
-    { slug: 'android-engineering', reason: 'Expand to mobile development' },
+    { slug: 'generative-ai', reason: 'Add AI capabilities to your applications' },
   ],
   'data-engineering': [
     { slug: 'backend-engineering', reason: 'Build robust data APIs and services' },
     { slug: 'devops-sre', reason: 'Deploy and monitor data pipelines' },
   ],
-  'android-engineering': [
-    { slug: 'full-stack', reason: 'Build web backends for your mobile apps' },
-    { slug: 'backend-engineering', reason: 'Create scalable APIs for mobile' },
+  'generative-ai': [
+    { slug: 'data-engineering', reason: 'Build the data pipelines that power AI systems' },
+    { slug: 'backend-engineering', reason: 'Serve your AI models behind scalable APIs' },
   ],
 };
 
@@ -161,7 +161,7 @@ export const interestOptions = [
   { id: 'fullstack', label: 'Full Stack Development', category: 'development' },
   { id: 'devops', label: 'DevOps & Cloud', category: 'devops' },
   { id: 'data', label: 'Data Engineering', category: 'data' },
-  { id: 'mobile', label: 'Mobile Development', category: 'mobile' },
+  { id: 'ai', label: 'Generative AI & LLMs', category: 'ai' },
   { id: 'system-design', label: 'System Design', category: 'architecture' },
   { id: 'interview', label: 'Interview Preparation', category: 'career' },
   { id: 'cloud', label: 'Cloud Computing', category: 'devops' },
