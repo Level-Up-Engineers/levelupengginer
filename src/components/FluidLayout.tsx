@@ -14,6 +14,7 @@ const FluidLayout = ({ children, className = "" }: FluidLayoutProps) => {
   const simulationStarted = useRef(false);
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [effectsEnabled, setEffectsEnabled] = useState(false);
 
   useEffect(() => setMounted(true), []);
 
@@ -27,8 +28,27 @@ const FluidLayout = ({ children, className = "" }: FluidLayoutProps) => {
 
     const init = async () => {
       try {
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
+
+        if (prefersReducedMotion || !hasFinePointer) {
+          setEffectsEnabled(false);
+          return;
+        }
+
+        const webglContext =
+          canvas.getContext("webgl2", { alpha: true, antialias: true }) ||
+          canvas.getContext("webgl", { alpha: true, antialias: true }) ||
+          canvas.getContext("experimental-webgl", { alpha: true, antialias: true });
+
+        if (!webglContext) {
+          setEffectsEnabled(false);
+          return;
+        }
+
         const { default: webglFluid } = await import("webgl-fluid");
         simulationStarted.current = true;
+        setEffectsEnabled(true);
 
         webglFluid(canvas, {
           SIM_RESOLUTION: 128,
@@ -137,8 +157,10 @@ const FluidLayout = ({ children, className = "" }: FluidLayoutProps) => {
           window.removeEventListener("scroll", clip);
           window.removeEventListener("resize", clip);
           clearInterval(idleInterval);
+          setEffectsEnabled(false);
         };
       } catch (err) {
+        setEffectsEnabled(false);
         console.warn("FluidLayout: init failed", err);
       }
     };
@@ -163,21 +185,25 @@ const FluidLayout = ({ children, className = "" }: FluidLayoutProps) => {
         />
       )}
 
-      <div ref={cursorDotRef} style={{
-        position: "fixed", width: 10, height: 10, borderRadius: "50%",
-        background: "#34d399", pointerEvents: "none", zIndex: 9999,
-        opacity: 0, transform: "translate(-50%,-50%)",
-        mixBlendMode: "screen", transition: "opacity 0.2s", willChange: "left,top",
-      }} />
-      <div ref={cursorRingRef} style={{
-        position: "fixed", width: 36, height: 36, borderRadius: "50%",
-        border: "2px solid rgba(52,211,153,0.5)", pointerEvents: "none", zIndex: 9998,
-        opacity: 0, transform: "translate(-50%,-50%)",
-        transition: "left 0.08s ease-out, top 0.08s ease-out, opacity 0.3s",
-        willChange: "left,top",
-      }} />
+      {effectsEnabled && (
+        <>
+          <div ref={cursorDotRef} style={{
+            position: "fixed", width: 10, height: 10, borderRadius: "50%",
+            background: "#34d399", pointerEvents: "none", zIndex: 9999,
+            opacity: 0, transform: "translate(-50%,-50%)",
+            mixBlendMode: "screen", transition: "opacity 0.2s", willChange: "left,top",
+          }} />
+          <div ref={cursorRingRef} style={{
+            position: "fixed", width: 36, height: 36, borderRadius: "50%",
+            border: "2px solid rgba(52,211,153,0.5)", pointerEvents: "none", zIndex: 9998,
+            opacity: 0, transform: "translate(-50%,-50%)",
+            transition: "left 0.08s ease-out, top 0.08s ease-out, opacity 0.3s",
+            willChange: "left,top",
+          }} />
+        </>
+      )}
 
-      <div ref={containerRef} className={`relative z-10 ${className}`} style={{ cursor: "none" }}>
+      <div ref={containerRef} className={`relative z-10 ${className}`} style={{ cursor: effectsEnabled ? "none" : "auto" }}>
         {children}
       </div>
     </>
